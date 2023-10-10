@@ -11,9 +11,9 @@ import {useState} from "react";
 const Dashboard = () => {
     const [currentlyDeletingFile, setCurrentlyDeletingFile] = useState<string | null>(null);
     const utils = trpc.useContext();
-    const {data: files} = trpc.getUserFiles.useQuery();
+    const {data: files, isLoading} = trpc.getUserFiles.useQuery();
 
-    const { mutate: deleteFile, isLoading } = trpc.deleteFile.useMutation({
+    const { mutate: deleteFile } = trpc.deleteFile.useMutation({
         onSuccess: () => {
             utils.getUserFiles.invalidate()
         },
